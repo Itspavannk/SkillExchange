@@ -162,6 +162,24 @@ http://localhost:3000
 
 ---
 
+# Screenshots
+
+## Homepage
+
+![Homepage](screenshots/Homepage.png)
+
+## Profile Page
+
+![Profile Page](screenshots/Profilepage.png)
+
+## Adding Skill
+
+![Add Skill](screenshots/Addskill.png)
+
+## Responsive Design
+
+![Responsive Ui](screenshots/Responsive-ui.png)
+
 # Future Enhancements
 
 - Real-time Chat
