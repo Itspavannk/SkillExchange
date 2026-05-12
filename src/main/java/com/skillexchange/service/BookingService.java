@@ -35,10 +35,10 @@ public class BookingService {
     private final DisputeRepository disputeRepository;
 
     public BookingService(BookingRepository bookingRepository,
-                          SkillRepository skillRepository,
-                          UserRepository userRepository,
-                          TransactionRepository transactionRepository,
-                          DisputeRepository disputeRepository) {
+            SkillRepository skillRepository,
+            UserRepository userRepository,
+            TransactionRepository transactionRepository,
+            DisputeRepository disputeRepository) {
 
         this.bookingRepository = bookingRepository;
         this.skillRepository = skillRepository;
@@ -48,40 +48,40 @@ public class BookingService {
     }
 
     // GET SINGLE BOOKING
-public BookingResponseDTO getBooking(@NonNull Long id) {
-    return toResponseDTO(getOrThrow(id));
-}
-
-// ADD MEETING LINK
-@Transactional
-public BookingResponseDTO addMeetingLink(@NonNull Long bookingId, String link, User currentUser) {
-
-    Booking booking = getOrThrow(bookingId);
-
-    if (!booking.getTeacherId().equals(currentUser.getId())) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only teacher can add link");
+    public BookingResponseDTO getBooking(@NonNull Long id) {
+        return toResponseDTO(getOrThrow(id));
     }
 
-    booking.setMeetingLink(link);
+    // ADD MEETING LINK
+    @Transactional
+    public BookingResponseDTO addMeetingLink(@NonNull Long bookingId, String link, User currentUser) {
 
-    return toResponseDTO(bookingRepository.save(booking));
-}
+        Booking booking = getOrThrow(bookingId);
 
-// LEARNER BOOKINGS
-public List<BookingResponseDTO> learnerBookings(Long learnerId) {
-    return bookingRepository.findByLearnerId(learnerId)
-            .stream()
-            .map(this::toResponseDTO)
-            .collect(Collectors.toList());
-}
+        if (!booking.getTeacherId().equals(currentUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only teacher can add link");
+        }
 
-// TEACHER BOOKINGS
-public List<BookingResponseDTO> teacherBookings(Long teacherId) {
-    return bookingRepository.findByTeacherId(teacherId)
-            .stream()
-            .map(this::toResponseDTO)
-            .collect(Collectors.toList());
-}
+        booking.setMeetingLink(link);
+
+        return toResponseDTO(bookingRepository.save(booking));
+    }
+
+    // LEARNER BOOKINGS
+    public List<BookingResponseDTO> learnerBookings(Long learnerId) {
+        return bookingRepository.findByLearnerId(learnerId)
+                .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    // TEACHER BOOKINGS
+    public List<BookingResponseDTO> teacherBookings(Long teacherId) {
+        return bookingRepository.findByTeacherId(teacherId)
+                .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
 
     // CREATE BOOKING
     @Transactional
@@ -115,7 +115,7 @@ public List<BookingResponseDTO> teacherBookings(Long teacherId) {
         userRepository.save(currentUser);
 
         Booking booking = new Booking();
-        booking.setSkill(skill); 
+        booking.setSkill(skill);
         booking.setLearnerId(currentUser.getId());
         booking.setTeacherId(skill.getOwner().getId());
         booking.setHours(hours);
@@ -123,19 +123,16 @@ public List<BookingResponseDTO> teacherBookings(Long teacherId) {
         if (request.getScheduledAt() != null) {
 
             LocalDateTime scheduledTime = LocalDateTime.parse(
-                    request.getScheduledAt().replace(" ", "T")
-            );
+                    request.getScheduledAt().replace(" ", "T"));
 
-                LocalDateTime minimumAllowed =
-                        LocalDateTime.now().plusMinutes(30);
+            LocalDateTime minimumAllowed = LocalDateTime.now().plusMinutes(30);
 
-                if (scheduledTime.isBefore(minimumAllowed)) {
+            if (scheduledTime.isBefore(minimumAllowed)) {
 
-                    throw new ResponseStatusException(
-                            HttpStatus.BAD_REQUEST,
-                            "Sessions must be scheduled at least 30 minutes in advance"
-                    );
-                }
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Sessions must be scheduled at least 30 minutes in advance");
+            }
 
             booking.setScheduledAt(scheduledTime);
         }
@@ -167,6 +164,21 @@ public List<BookingResponseDTO> teacherBookings(Long teacherId) {
         if (booking.getStatus() != BookingStatus.pending) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Booking not in pending state");
         }
+
+        if (booking.getScheduledAt() != null) {
+
+    LocalDateTime sessionEnd =
+            booking.getScheduledAt()
+                    .plusHours(booking.getHours());
+
+    if (LocalDateTime.now().isBefore(sessionEnd)) {
+
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Session cannot be completed before scheduled time ends"
+        );
+    }
+}
 
         booking.setStatus(BookingStatus.teacher_marked_complete);
         booking.setTeacherCompletedAt(LocalDateTime.now());
@@ -211,24 +223,21 @@ public List<BookingResponseDTO> teacherBookings(Long teacherId) {
     }
 
     @Scheduled(fixedRate = 60000)
-@Transactional
-public void autoCompleteExpiredBookings() {
+    @Transactional
+    public void autoCompleteExpiredBookings() {
 
-    List<Booking> bookings =
-            bookingRepository.findByStatus(
-                    BookingStatus.teacher_marked_complete
-            );
+        List<Booking> bookings = bookingRepository.findByStatus(
+                BookingStatus.teacher_marked_complete);
 
-    for (Booking booking : bookings) {
+        for (Booking booking : bookings) {
 
-        if (booking.getTeacherCompletedAt() == null) {
-            continue;
-        }
+            if (booking.getTeacherCompletedAt() == null) {
+                continue;
+            }
 
-        LocalDateTime expiry =
-                booking.getTeacherCompletedAt().plusHours(24);
+            LocalDateTime expiry = booking.getTeacherCompletedAt().plusHours(24);
 
-        if (LocalDateTime.now().isAfter(expiry)) {
+            if (LocalDateTime.now().isAfter(expiry)) {
 
                 Long teacherId = booking.getTeacherId();
                 if (teacherId == null) {
@@ -245,22 +254,22 @@ public void autoCompleteExpiredBookings() {
 
                 userRepository.save(teacher);
 
-            booking.setStatus(BookingStatus.completed);
-            booking.setEscrowReleasedAt(LocalDateTime.now());
+                booking.setStatus(BookingStatus.completed);
+                booking.setEscrowReleasedAt(LocalDateTime.now());
 
-            bookingRepository.save(booking);
+                bookingRepository.save(booking);
 
-            Transaction tx = new Transaction();
+                Transaction tx = new Transaction();
 
-            tx.setSenderId(booking.getLearnerId());
-            tx.setReceiverId(booking.getTeacherId());
-            tx.setAmount(booking.getTotalCredits());
-            tx.setType("auto_escrow_release");
+                tx.setSenderId(booking.getLearnerId());
+                tx.setReceiverId(booking.getTeacherId());
+                tx.setAmount(booking.getTotalCredits());
+                tx.setType("auto_escrow_release");
 
-            transactionRepository.save(tx);
+                transactionRepository.save(tx);
+            }
         }
     }
-}
 
     // CANCEL
     @SuppressWarnings("null")
@@ -322,8 +331,7 @@ public void autoCompleteExpiredBookings() {
                 owner.getName(),
                 owner.getRatingCount() > 0
                         ? (double) owner.getRatingTotal() / owner.getRatingCount()
-                        : 0.0
-        ));
+                        : 0.0));
 
         Long learnerId = booking.getLearnerId();
         if (learnerId != null) {
