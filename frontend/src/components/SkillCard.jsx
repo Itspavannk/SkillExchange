@@ -75,8 +75,8 @@ export default function SkillCard({ skill, index, onSelect }) {
         style={{
           height: "100%",
 
-          minHeight: isMobile ? 380 : 550,
-          maxHeight: isMobile ? 380 : 550,
+          minHeight: isMobile ? 380 : 530,
+          maxHeight: isMobile ? 380 : 530,
 
           width: "100%",
 
@@ -205,10 +205,10 @@ export default function SkillCard({ skill, index, onSelect }) {
                 fontSize: isMobile ? 11 : 15,
                 lineHeight: 1.45,
                 marginTop: isMobile ? 4 : 8,
-                marginBottom: isMobile ? 2 : 10,
+                marginBottom: isMobile ? 2 : 5,
 
-                minHeight: isMobile ? 75 : 140,
-                maxHeight: isMobile ? 75 : 140,
+                minHeight: isMobile ? 75 : 130,
+                maxHeight: isMobile ? 75 : 130,
 
                 overflowY: "auto",
                 overflowX: "hidden",
