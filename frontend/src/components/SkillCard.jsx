@@ -150,6 +150,7 @@ export default function SkillCard({ skill, index, onSelect }) {
               display: "flex",
               flexDirection: "column",
               flex: 1,
+              justifyContent: "space-between"
             }}
           >
             <div
@@ -186,6 +187,7 @@ export default function SkillCard({ skill, index, onSelect }) {
               </span>
             </div>
 
+<div>
             <h3
               className="clash"
               style={{
@@ -249,6 +251,7 @@ export default function SkillCard({ skill, index, onSelect }) {
                 border: "1px solid rgba(255,255,255,.06)",
               }}
             >
+              
               <div>
                 <div
                   style={{
@@ -328,6 +331,7 @@ export default function SkillCard({ skill, index, onSelect }) {
                   )}
                 </div>
               </div>
+            </div>
             </div>
 
             {/* Footer */}
