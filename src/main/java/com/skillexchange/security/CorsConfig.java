@@ -15,6 +15,7 @@ public class CorsConfig {
         config.addAllowedOrigin("https://skill-exchange-git-main-itspavannk.vercel.app");
         config.addAllowedOrigin("capacitor://localhost");
         config.addAllowedOrigin("http://localhost");
+        config.addAllowedOrigin("https://localhost");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);

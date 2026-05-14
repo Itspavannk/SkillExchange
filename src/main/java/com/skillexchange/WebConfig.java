@@ -19,7 +19,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "https://skill-exchange-git-main-itspavannk.vercel.app",
                         "capacitor://localhost",
-                        "http://localhost")
+                        "http://localhost",
+                        "https://localhost")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
