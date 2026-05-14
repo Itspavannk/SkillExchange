@@ -12,7 +12,9 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.addAllowedOrigin("http://localhost:3000");
-config.addAllowedOrigin("https://skill-exchange-git-main-itspavannk.vercel.app");
+        config.addAllowedOrigin("https://skill-exchange-git-main-itspavannk.vercel.app");
+        config.addAllowedOrigin("capacitor://localhost");
+        config.addAllowedOrigin("http://localhost");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);

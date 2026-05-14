@@ -17,7 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(
-                        "https://skill-exchange-git-main-itspavannk.vercel.app")
+                        "https://skill-exchange-git-main-itspavannk.vercel.app",
+                        "capacitor://localhost",
+                        "http://localhost")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
