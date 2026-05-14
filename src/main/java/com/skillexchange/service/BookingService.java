@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -171,13 +172,14 @@ public class BookingService {
             booking.getScheduledAt()
                     .plusHours(booking.getHours());
 
-    if (LocalDateTime.now().isBefore(sessionEnd)) {
+if (LocalDateTime.now(ZoneId.of("Asia/Kolkata"))
+        .isBefore(sessionEnd)) {
 
-        throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Session cannot be completed before scheduled time ends"
-        );
-    }
+    throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "Session cannot be completed before scheduled time ends"
+    );
+}
 }
 
         booking.setStatus(BookingStatus.teacher_marked_complete);
