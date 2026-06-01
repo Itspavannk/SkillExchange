@@ -417,6 +417,8 @@ function EditProfileModal({ user, onClose, onDone, preview, setPreview }) {
       });
 
       const data = await res.json();
+      console.log("UPLOAD RESPONSE:", data);
+alert(data.imageUrl);
 
       console.log(data);
       setPreview(data.imageUrl);
