@@ -408,7 +408,7 @@ function EditProfileModal({ user, onClose, onDone, preview, setPreview }) {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const res = await fetch("http://localhost:8080/users/upload-avatar", {
+      const res = await fetch("https://skillexchange-wkuw.onrender.com/users/upload-avatar", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("sx_token")}`,
@@ -449,7 +449,7 @@ function EditProfileModal({ user, onClose, onDone, preview, setPreview }) {
     try {
       setUploading(true);
 
-      await fetch("http://localhost:8080/users/remove-avatar", {
+      await fetch("https://skillexchange-wkuw.onrender.com/users/remove-avatar", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("sx_token")}`,
