@@ -6,11 +6,22 @@ public class CreditTransferRequestDTO {
     private String receiverEmail;
     private Integer amount;
 
-    public CreditTransferRequestDTO() {}
+    public CreditTransferRequestDTO() {
+    }
 
-    public String getReceiverEmail() { return receiverEmail; }
-    public void setReceiverEmail(String receiverEmail) { this.receiverEmail = receiverEmail; }
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
 
-    public Integer getAmount() { return amount; }
-    public void setAmount(Integer amount) { this.amount = amount; }
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 }

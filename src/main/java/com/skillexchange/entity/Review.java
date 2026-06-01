@@ -4,12 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-    name = "reviews",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "unique_review_per_user_per_booking", columnNames = {"booking_id", "reviewer_id"})
-    }
-)
+@Table(name = "reviews", uniqueConstraints = {
+        @UniqueConstraint(name = "unique_review_per_user_per_booking", columnNames = { "booking_id", "reviewer_id" })
+})
 public class Review {
 
     @Id
@@ -38,27 +35,62 @@ public class Review {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Review() {}
+    public Review() {
+    }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getBookingId() { return bookingId; }
-    public void setBookingId(Long bookingId) { this.bookingId = bookingId; }
+    public Long getBookingId() {
+        return bookingId;
+    }
 
-    public Long getSkillId() { return skillId; }
-    public void setSkillId(Long skillId) { this.skillId = skillId; }
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
+    }
 
-    public Long getReviewerId() { return reviewerId; }
-    public void setReviewerId(Long reviewerId) { this.reviewerId = reviewerId; }
+    public Long getSkillId() {
+        return skillId;
+    }
 
-    public Long getRevieweeId() { return revieweeId; }
-    public void setRevieweeId(Long revieweeId) { this.revieweeId = revieweeId; }
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
 
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
+    public Long getReviewerId() {
+        return reviewerId;
+    }
 
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public void setReviewerId(Long reviewerId) {
+        this.reviewerId = reviewerId;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Long getRevieweeId() {
+        return revieweeId;
+    }
+
+    public void setRevieweeId(Long revieweeId) {
+        this.revieweeId = revieweeId;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

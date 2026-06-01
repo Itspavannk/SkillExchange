@@ -6,7 +6,7 @@ import com.skillexchange.entity.User;
 import com.skillexchange.service.DisputeService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 @RestController
@@ -22,8 +22,8 @@ public class DisputeController {
     // POST /disputes/{booking_id}
     @PostMapping("/{bookingId}")
     public DisputeResponseDTO raiseDispute(@PathVariable Long bookingId,
-                                           @RequestBody DisputeCreateDTO data,
-                                           @AuthenticationPrincipal User currentUser) {
+            @RequestBody DisputeCreateDTO data,
+            @AuthenticationPrincipal User currentUser) {
         return disputeService.raiseDispute(bookingId, data, currentUser);
     }
 
@@ -35,6 +35,7 @@ public class DisputeController {
 
     // GET /disputes/admin — admin only (guarded by SecurityConfig)
     @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<DisputeResponseDTO> allDisputes() {
         return disputeService.allDisputes();
     }
@@ -42,9 +43,10 @@ public class DisputeController {
     // POST /disputes/admin/{id}/resolve — admin only
     // refund=true → deduct teacher, refund learner; refund=false → mark completed
     @PostMapping("/admin/{id}/resolve")
+    @PreAuthorize("hasRole('ADMIN')")
     public DisputeResponseDTO resolveDispute(@PathVariable Long id,
-                                             @RequestParam(defaultValue = "false") boolean refund,
-                                             @RequestParam(required = false) String adminNote) {
+            @RequestParam(defaultValue = "false") boolean refund,
+            @RequestParam(required = false) String adminNote) {
         return disputeService.resolveDispute(id, refund, adminNote);
     }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-
 @Service
 public class DisputeService {
 
@@ -30,19 +29,16 @@ public class DisputeService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final TransactionRepository transactionRepository;
-    private final SkillRepository skillRepository;
 
-    
-        public DisputeService(DisputeRepository disputeRepository,
-                            BookingRepository bookingRepository,
-                            UserRepository userRepository,
-                            TransactionRepository transactionRepository,
-                            SkillRepository skillRepository) {
+    public DisputeService(DisputeRepository disputeRepository,
+            BookingRepository bookingRepository,
+            UserRepository userRepository,
+            TransactionRepository transactionRepository,
+            SkillRepository skillRepository) {
         this.disputeRepository = disputeRepository;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
-        this.skillRepository = skillRepository;
     }
 
     // Raise dispute
@@ -51,8 +47,7 @@ public class DisputeService {
 
         Booking booking = bookingRepository.findById(
                 Objects.requireNonNull(bookingId, "Booking ID cannot be null"))
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
 
         if (booking.getStatus() == BookingStatus.refunded) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Booking already refunded");
@@ -84,7 +79,6 @@ public class DisputeService {
         return toResponseDTO(disputeRepository.save(dispute));
     }
 
-
     // My disputes
     public List<DisputeResponseDTO> myDisputes(Long userId) {
         return disputeRepository.findByRaisedBy(userId)
@@ -92,7 +86,6 @@ public class DisputeService {
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }
-
 
     // Admin view all disputes
     public List<DisputeResponseDTO> allDisputes() {
@@ -102,15 +95,13 @@ public class DisputeService {
                 .collect(Collectors.toList());
     }
 
-
     // Resolve dispute
     @Transactional
     public DisputeResponseDTO resolveDispute(Long disputeId, boolean refund, String adminNote) {
 
         Dispute dispute = disputeRepository.findById(
                 Objects.requireNonNull(disputeId, "Dispute ID cannot be null"))
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Dispute not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Dispute not found"));
 
         if (!"open".equals(dispute.getStatus())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dispute already handled");
@@ -118,26 +109,22 @@ public class DisputeService {
 
         Booking booking = bookingRepository.findById(
                 Objects.requireNonNull(dispute.getBookingId(), "Booking ID cannot be null"))
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
 
         if (refund) {
 
             User teacher = userRepository.findById(
                     Objects.requireNonNull(booking.getTeacherId(), "Teacher ID cannot be null"))
-                    .orElseThrow(() ->
-                            new ResponseStatusException(HttpStatus.NOT_FOUND, "Teacher not found"));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Teacher not found"));
 
             User learner = userRepository.findById(
                     Objects.requireNonNull(booking.getLearnerId(), "Learner ID cannot be null"))
-                    .orElseThrow(() ->
-                            new ResponseStatusException(HttpStatus.NOT_FOUND, "Learner not found"));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Learner not found"));
 
             if (teacher.getCredits() < booking.getTotalCredits()) {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST,
-                        "Teacher does not have enough credits for refund"
-                );
+                        "Teacher does not have enough credits for refund");
             }
 
             teacher.setCredits(teacher.getCredits() - booking.getTotalCredits());
@@ -172,55 +159,53 @@ public class DisputeService {
         return toResponseDTO(disputeRepository.save(dispute));
     }
 
+    private DisputeResponseDTO toResponseDTO(Dispute dispute) {
 
-   private DisputeResponseDTO toResponseDTO(Dispute dispute) {
+        DisputeResponseDTO dto = new DisputeResponseDTO();
 
-    DisputeResponseDTO dto = new DisputeResponseDTO();
+        dto.setId(dispute.getId());
+        dto.setBookingId(dispute.getBookingId());
+        dto.setRaisedBy(dispute.getRaisedBy());
+        dto.setReason(dispute.getReason());
+        dto.setStatus(dispute.getStatus());
+        dto.setAdminNote(dispute.getAdminNote());
+        dto.setCreatedAt(dispute.getCreatedAt());
+        dto.setResolvedAt(dispute.getResolvedAt());
 
-    dto.setId(dispute.getId());
-    dto.setBookingId(dispute.getBookingId());
-    dto.setRaisedBy(dispute.getRaisedBy());
-    dto.setReason(dispute.getReason());
-    dto.setStatus(dispute.getStatus());
-    dto.setAdminNote(dispute.getAdminNote());
-    dto.setCreatedAt(dispute.getCreatedAt());
-    dto.setResolvedAt(dispute.getResolvedAt());
+        Long bookingId = dispute.getBookingId();
+        if (bookingId != null) {
+            bookingRepository.findById(bookingId).ifPresent(booking -> {
 
+                // Raised By
+                Long raisedById = dispute.getRaisedBy();
+                if (raisedById != null) {
+                    userRepository.findById(raisedById)
+                            .ifPresent(user -> dto.setRaisedByName(user.getName()));
+                }
 
-    Long bookingId = dispute.getBookingId();
-    if (bookingId != null) {
-        bookingRepository.findById(bookingId).ifPresent(booking -> {
+                // Teacher
+                Long teacherId = booking.getTeacherId();
+                if (teacherId != null) {
+                    userRepository.findById(teacherId)
+                            .ifPresent(user -> dto.setTeacherName(user.getName()));
+                }
 
-            //Raised By
-            Long raisedById = dispute.getRaisedBy();
-            if (raisedById != null) {
-                userRepository.findById(raisedById)
-                        .ifPresent(user -> dto.setRaisedByName(user.getName()));
-            }
+                // Learner
+                Long learnerId = booking.getLearnerId();
+                if (learnerId != null) {
+                    userRepository.findById(learnerId)
+                            .ifPresent(user -> dto.setLearnerName(user.getName()));
+                }
 
-            //Teacher
-            Long teacherId = booking.getTeacherId();
-            if (teacherId != null) {
-                userRepository.findById(teacherId)
-                        .ifPresent(user -> dto.setTeacherName(user.getName()));
-            }
-
-            //Learner
-            Long learnerId = booking.getLearnerId();
-            if (learnerId != null) {
-                userRepository.findById(learnerId)
-                        .ifPresent(user -> dto.setLearnerName(user.getName()));
-            }
-
-            //Skill
-           Skill skill = booking.getSkill();
+                // Skill
+                Skill skill = booking.getSkill();
                 if (skill != null) {
                     dto.setSkillTitle(skill.getTitle());
                 }
 
-        });
-    }
+            });
+        }
 
-    return dto;
-}
+        return dto;
+    }
 }

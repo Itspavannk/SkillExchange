@@ -18,7 +18,7 @@ public class CreditService {
     private final TransactionRepository transactionRepository;
 
     public CreditService(UserRepository userRepository,
-                         TransactionRepository transactionRepository) {
+            TransactionRepository transactionRepository) {
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
     }
@@ -41,7 +41,7 @@ public class CreditService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot transfer to yourself");
         }
 
-        //credit_service.py: if sender.credits < amount → 400
+        // credit_service.py: if sender.credits < amount → 400
         if (currentUser.getCredits() < request.getAmount()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient credits");
         }

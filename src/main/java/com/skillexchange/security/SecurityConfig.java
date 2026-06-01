@@ -28,41 +28,41 @@ public class SecurityConfig {
     }
 
     @Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .cors(cors -> {})
-        .csrf(csrf -> csrf.disable())
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .cors(cors -> {
+                })
+                .csrf(csrf -> csrf.disable())
 
-        // ADD THESE TWO LINES
-        .formLogin(form -> form.disable())
-        .httpBasic(basic -> basic.disable())
+                // ADD THESE TWO LINES
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
 
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-.authorizeHttpRequests(auth -> auth
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
 
-    .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
 
-    .requestMatchers("/users/upload-avatar").authenticated()
+                        .requestMatchers("/users/upload-avatar").authenticated()
 
-    .requestMatchers("/bookings/*/meeting-link").authenticated()
+                        .requestMatchers("/bookings/*/meeting-link").authenticated()
 
-    .requestMatchers(
-        "/auth/**",
-        "/skills/**",
-        "/swagger-ui.html",
-        "/swagger-ui/**",
-        "/v3/api-docs/**"
-    ).permitAll()
+                        .requestMatchers(
+                                "/auth/**",
+                                "/skills/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**")
+                        .permitAll()
 
-    .requestMatchers("/bookings/**").authenticated() 
+                        .requestMatchers("/bookings/**").authenticated()
 
-    .requestMatchers("/disputes/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/disputes/admin/**").hasRole("ADMIN")
 
-    .anyRequest().authenticated()
-)
-        
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        .anyRequest().authenticated())
 
-    return http.build();
-}
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 }

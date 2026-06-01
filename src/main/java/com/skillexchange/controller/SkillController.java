@@ -23,15 +23,15 @@ public class SkillController {
     // POST /skills/ — owner set from JWT, not from request body
     @PostMapping
     public SkillResponseDTO createSkill(@RequestBody SkillCreateDTO dto,
-                                        @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal User currentUser) {
         return skillService.createSkill(dto, currentUser);
     }
 
     // GET /skills/ with optional sort=rating|price|newest
-@GetMapping
-public List<SkillResponseDTO> listSkills(@RequestParam(required = false) SkillSortOption sort) {
-    return skillService.getAllSkills(sort);
-}
+    @GetMapping
+    public List<SkillResponseDTO> listSkills(@RequestParam(required = false) SkillSortOption sort) {
+        return skillService.getAllSkills(sort);
+    }
 
     // GET /skills/me — current user's skills from JWT
     @GetMapping("/me")

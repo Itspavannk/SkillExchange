@@ -23,7 +23,7 @@ public class BookingCreateDTO {
     }
 
     public String getScheduledAt() {
-    return scheduledAt;
+        return scheduledAt;
     }
 
     public void setScheduledAt(String scheduledAt) {

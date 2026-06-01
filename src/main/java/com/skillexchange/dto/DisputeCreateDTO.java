@@ -8,7 +8,8 @@ public class DisputeCreateDTO {
     @NotBlank(message = "Reason is required")
     private String reason;
 
-    public DisputeCreateDTO() {}
+    public DisputeCreateDTO() {
+    }
 
     public String getReason() {
         return reason;

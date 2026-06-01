@@ -44,49 +44,104 @@ public class User {
     @Column(name = "reset_token_expiry")
     private LocalDateTime resetTokenExpiry;
 
-    public User() {}
+    public User() {
+    }
 
     // Getters and Setters
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getHashedPassword() { return hashedPassword; }
-    public void setHashedPassword(String hashedPassword) { this.hashedPassword = hashedPassword; }
-
-    public String getProfileImage() { 
-    return profileImage; 
+    public Long getId() {
+        return id;
     }
 
-    public void setProfileImage(String profileImage) { 
-        this.profileImage = profileImage; 
+    public void setId(Long id) {
+        this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Integer getCredits() { return credits; }
-    public void setCredits(Integer credits) { this.credits = credits; }
+    public String getEmail() {
+        return email;
+    }
 
-    public Integer getRatingTotal() { return ratingTotal; }
-    public void setRatingTotal(Integer ratingTotal) { this.ratingTotal = ratingTotal; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public Integer getRatingCount() { return ratingCount; }
-    public void setRatingCount(Integer ratingCount) { this.ratingCount = ratingCount; }
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 
-    public String getResetToken() { return resetToken; }
-    public void setResetToken(String resetToken) { this.resetToken = resetToken; }
+    public String getProfileImage() {
+        return profileImage;
+    }
 
-    public LocalDateTime getResetTokenExpiry() { return resetTokenExpiry; }
-    public void setResetTokenExpiry(LocalDateTime resetTokenExpiry) { this.resetTokenExpiry = resetTokenExpiry; }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+    public Integer getRatingTotal() {
+        return ratingTotal;
+    }
+
+    public void setRatingTotal(Integer ratingTotal) {
+        this.ratingTotal = ratingTotal;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getResetTokenExpiry() {
+        return resetTokenExpiry;
+    }
+
+    public void setResetTokenExpiry(LocalDateTime resetTokenExpiry) {
+        this.resetTokenExpiry = resetTokenExpiry;
+    }
 }

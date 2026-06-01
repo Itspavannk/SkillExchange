@@ -1,4 +1,5 @@
 package com.skillexchange.dto;
+
 import java.time.LocalDateTime;
 
 // UserResponse schema — never exposes hashed_password
@@ -10,14 +11,16 @@ public class UserResponseDTO {
     private Integer credits;
     private Integer ratingTotal;
     private Integer ratingCount;
-    private Double averageRating;  // Computed: ratingTotal / ratingCount
+    private Double averageRating; // Computed: ratingTotal / ratingCount
     private String role;
     private String profileImage;
     private LocalDateTime createdAt;
-    public UserResponseDTO() {}
+
+    public UserResponseDTO() {
+    }
 
     public UserResponseDTO(Long id, String name, String email, Integer credits,
-                           Integer ratingTotal, Integer ratingCount, Double averageRating) {
+            Integer ratingTotal, Integer ratingCount, Double averageRating) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -26,45 +29,81 @@ public class UserResponseDTO {
         this.ratingCount = ratingCount;
         this.averageRating = averageRating;
     }
+
     public String getRole() {
-    return role;
+        return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getName() {
+        return name;
+    }
 
-    public Integer getCredits() { return credits; }
-    public void setCredits(Integer credits) { this.credits = credits; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Integer getRatingTotal() { return ratingTotal; }
-    public void setRatingTotal(Integer ratingTotal) { this.ratingTotal = ratingTotal; }
+    public String getEmail() {
+        return email;
+    }
 
-    public Integer getRatingCount() { return ratingCount; }
-    public void setRatingCount(Integer ratingCount) { this.ratingCount = ratingCount; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public Double getAverageRating() { return averageRating; }
-    public void setAverageRating(Double averageRating) { this.averageRating = averageRating; }
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+    public Integer getRatingTotal() {
+        return ratingTotal;
+    }
+
+    public void setRatingTotal(Integer ratingTotal) {
+        this.ratingTotal = ratingTotal;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
 
     public String getProfileImage() {
-    return profileImage;
+        return profileImage;
     }
 
     public void setProfileImage(String profileImage) {
-    this.profileImage = profileImage;
+        this.profileImage = profileImage;
     }
 
     public LocalDateTime getCreatedAt() {
-    return createdAt;
+        return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

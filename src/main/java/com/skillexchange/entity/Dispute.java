@@ -4,13 +4,10 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-    name = "disputes",
-    uniqueConstraints = {
+@Table(name = "disputes", uniqueConstraints = {
         // UniqueConstraint("booking_id", name="one_dispute_per_booking")
-        @UniqueConstraint(name = "one_dispute_per_booking", columnNames = {"booking_id"})
-    }
-)
+        @UniqueConstraint(name = "one_dispute_per_booking", columnNames = { "booking_id" })
+})
 public class Dispute {
 
     @Id
@@ -36,33 +33,68 @@ public class Dispute {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // resolved_at field 
+    // resolved_at field
     @Column(name = "resolved_at")
     private LocalDateTime resolvedAt;
 
-    public Dispute() {}
+    public Dispute() {
+    }
 
     // Getters and Setters
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getBookingId() { return bookingId; }
-    public void setBookingId(Long bookingId) { this.bookingId = bookingId; }
+    public Long getBookingId() {
+        return bookingId;
+    }
 
-    public Long getRaisedBy() { return raisedBy; }
-    public void setRaisedBy(Long raisedBy) { this.raisedBy = raisedBy; }
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String reason) { this.reason = reason; }
+    public Long getRaisedBy() {
+        return raisedBy;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setRaisedBy(Long raisedBy) {
+        this.raisedBy = raisedBy;
+    }
 
-    public String getAdminNote() { return adminNote; }
-    public void setAdminNote(String adminNote) { this.adminNote = adminNote; }
+    public String getReason() {
+        return reason;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
-    public LocalDateTime getResolvedAt() { return resolvedAt; }
-    public void setResolvedAt(LocalDateTime resolvedAt) { this.resolvedAt = resolvedAt; }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAdminNote() {
+        return adminNote;
+    }
+
+    public void setAdminNote(String adminNote) {
+        this.adminNote = adminNote;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getResolvedAt() {
+        return resolvedAt;
+    }
+
+    public void setResolvedAt(LocalDateTime resolvedAt) {
+        this.resolvedAt = resolvedAt;
+    }
 }

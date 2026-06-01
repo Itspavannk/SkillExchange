@@ -23,8 +23,8 @@ public class AdminService {
     private final TransactionRepository transactionRepository;
 
     public AdminService(UserRepository userRepository,
-                        BookingRepository bookingRepository,
-                        TransactionRepository transactionRepository) {
+            BookingRepository bookingRepository,
+            TransactionRepository transactionRepository) {
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
         this.transactionRepository = transactionRepository;
@@ -52,15 +52,12 @@ public class AdminService {
         if (amount == null || amount <= 0) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Amount must be positive"
-            );
+                    "Amount must be positive");
         }
 
         User user = userRepository.findById(
-                Objects.requireNonNull(userId, "User ID cannot be null")
-        ).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
-        );
+                Objects.requireNonNull(userId, "User ID cannot be null"))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         // Add credits
         user.setCredits(user.getCredits() + amount);
@@ -78,7 +75,6 @@ public class AdminService {
         return Map.of(
                 "message", "Credits granted successfully",
                 "user_id", user.getId(),
-                "new_balance", user.getCredits()
-        );
+                "new_balance", user.getCredits());
     }
 }

@@ -27,9 +27,9 @@ public class ReviewService {
     private final SkillRepository skillRepository;
 
     public ReviewService(ReviewRepository reviewRepository,
-                         BookingRepository bookingRepository,
-                         UserRepository userRepository,
-                         SkillRepository skillRepository) {
+            BookingRepository bookingRepository,
+            UserRepository userRepository,
+            SkillRepository skillRepository) {
         this.reviewRepository = reviewRepository;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
@@ -128,7 +128,8 @@ public class ReviewService {
     }
 
     private String getUserName(Long userId) {
-        if (userId == null) return "Unknown";
+        if (userId == null)
+            return "Unknown";
         return userRepository.findById(userId).map(User::getName).orElse("Unknown");
     }
 

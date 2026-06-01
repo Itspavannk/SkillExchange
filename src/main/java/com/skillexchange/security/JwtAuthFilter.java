@@ -30,8 +30,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String path = request.getRequestURI();
 
@@ -53,24 +52,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 System.out.println("JWT VALIDATED: " + token);
 
                 if (userId != null) {
-                            userRepository.findById(userId).ifPresent(user -> {
+                    userRepository.findById(userId).ifPresent(user -> {
 
-                                String role = user.getRole().toUpperCase();
+                        String role = user.getRole().toUpperCase();
 
-                                // ensure correct format for Spring Security
-                                if (!role.startsWith("ROLE_")) {
-                                    role = "ROLE_" + role;
-                                }
+                        // ensure correct format for Spring Security
+                        if (!role.startsWith("ROLE_")) {
+                            role = "ROLE_" + role;
+                        }
 
-                                List<SimpleGrantedAuthority> authorities = List.of(
-                                    new SimpleGrantedAuthority(role)
-                                );
+                        List<SimpleGrantedAuthority> authorities = List.of(
+                                new SimpleGrantedAuthority(role));
 
-                                UsernamePasswordAuthenticationToken auth =
-                                    new UsernamePasswordAuthenticationToken(user, null, authorities);
+                        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null,
+                                authorities);
 
-                                SecurityContextHolder.getContext().setAuthentication(auth);
-                            });
+                        SecurityContextHolder.getContext().setAuthentication(auth);
+                    });
                 }
             }
         }

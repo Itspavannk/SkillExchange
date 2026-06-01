@@ -24,17 +24,16 @@ public class UserController {
     @PostMapping("/upload-avatar")
     public ResponseEntity<?> uploadAvatar(
             @RequestParam("file") MultipartFile file,
-            @AuthenticationPrincipal User user
-    ) {
+            @AuthenticationPrincipal User user) {
         try {
             if (file.isEmpty()) {
                 return ResponseEntity.badRequest().body("File is empty");
             }
-           
-String contentType = file.getContentType();
-if (contentType == null || !contentType.startsWith("image/")) {
-    return ResponseEntity.badRequest().body("Only image files are allowed");
-}
+
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                return ResponseEntity.badRequest().body("Only image files are allowed");
+            }
 
             if (user == null) {
                 return ResponseEntity.status(401).body("Not authenticated");
@@ -42,12 +41,14 @@ if (contentType == null || !contentType.startsWith("image/")) {
 
             String uploadDir = System.getProperty("user.dir") + "/uploads/";
             File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
+            if (!dir.exists())
+                dir.mkdirs();
 
             String originalFilename = file.getOriginalFilename();
-            String originalName = originalFilename != null ? originalFilename.replaceAll("[^a-zA-Z0-9._-]", "_") : "photo";
+            String originalName = originalFilename != null ? originalFilename.replaceAll("[^a-zA-Z0-9._-]", "_")
+                    : "photo";
 
-        String fileName = System.currentTimeMillis() + "_" + originalName;
+            String fileName = System.currentTimeMillis() + "_" + originalName;
             File dest = new File(uploadDir + fileName);
             file.transferTo(dest);
 

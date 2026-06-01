@@ -21,7 +21,7 @@ public class CreditController {
     // Sender is always the authenticated user — receiver looked up by email
     @PostMapping("/transfer")
     public TransactionResponseDTO transfer(@RequestBody CreditTransferRequestDTO request,
-                                           @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal User currentUser) {
         return creditService.transfer(request, currentUser);
     }
 }

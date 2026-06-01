@@ -8,7 +8,6 @@ export async function register({ name, email, password }) {
 export async function login({ email, password }) {
   const data = await http.post("/auth/login", { email, password });
 
-  // save token correctly
   Token.set(data.access_token);
 
   return data;

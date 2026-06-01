@@ -42,9 +42,9 @@ public class AdminController {
     // POST /admin/grant-credits — with reason param and transaction log
     @PostMapping("/grant-credits")
     public Map<String, Object> grantCredits(@RequestParam Long userId,
-                                             @RequestParam Integer amount,
-                                             @RequestParam String reason,
-                                             @AuthenticationPrincipal User admin) {
+            @RequestParam Integer amount,
+            @RequestParam String reason,
+            @AuthenticationPrincipal User admin) {
         return adminService.grantCredits(userId, amount, reason, admin);
     }
 }

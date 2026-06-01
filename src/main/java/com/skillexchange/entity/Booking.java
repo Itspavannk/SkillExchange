@@ -60,43 +60,93 @@ public class Booking {
     @Column(name = "escrow_released_at")
     private LocalDateTime escrowReleasedAt;
 
-    public Booking() {}
+    public Booking() {
+    }
 
     // Getters and Setters
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Skill getSkill() { return skill; }
-    public void setSkill(Skill skill) { this.skill = skill; }
+    public Skill getSkill() {
+        return skill;
+    }
 
-    public Long getLearnerId() { return learnerId; }
-    public void setLearnerId(Long learnerId) { this.learnerId = learnerId; }
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
 
-    public Long getTeacherId() { return teacherId; }
-    public void setTeacherId(Long teacherId) { this.teacherId = teacherId; }
+    public Long getLearnerId() {
+        return learnerId;
+    }
 
-    public Integer getHours() { return hours; }
-    public void setHours(Integer hours) { this.hours = hours; }
+    public void setLearnerId(Long learnerId) {
+        this.learnerId = learnerId;
+    }
 
-    public Integer getTotalCredits() { return totalCredits; }
-    public void setTotalCredits(Integer totalCredits) { this.totalCredits = totalCredits; }
+    public Long getTeacherId() {
+        return teacherId;
+    }
 
-    public BookingStatus getStatus() { return status; }
-    public void setStatus(BookingStatus status) { this.status = status; }
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Integer getHours() {
+        return hours;
+    }
 
-    public LocalDateTime getTeacherCompletedAt() { return teacherCompletedAt; }
-    public void setTeacherCompletedAt(LocalDateTime teacherCompletedAt) { this.teacherCompletedAt = teacherCompletedAt; }
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
 
-    public LocalDateTime getLearnerConfirmedAt() { return learnerConfirmedAt; }
-    public void setLearnerConfirmedAt(LocalDateTime learnerConfirmedAt) { this.learnerConfirmedAt = learnerConfirmedAt; }
+    public Integer getTotalCredits() {
+        return totalCredits;
+    }
 
-    public LocalDateTime getEscrowReleasedAt() { return escrowReleasedAt; }
-    public void setEscrowReleasedAt(LocalDateTime escrowReleasedAt) { this.escrowReleasedAt = escrowReleasedAt; }
+    public void setTotalCredits(Integer totalCredits) {
+        this.totalCredits = totalCredits;
+    }
+
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookingStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getTeacherCompletedAt() {
+        return teacherCompletedAt;
+    }
+
+    public void setTeacherCompletedAt(LocalDateTime teacherCompletedAt) {
+        this.teacherCompletedAt = teacherCompletedAt;
+    }
+
+    public LocalDateTime getLearnerConfirmedAt() {
+        return learnerConfirmedAt;
+    }
+
+    public void setLearnerConfirmedAt(LocalDateTime learnerConfirmedAt) {
+        this.learnerConfirmedAt = learnerConfirmedAt;
+    }
+
+    public LocalDateTime getEscrowReleasedAt() {
+        return escrowReleasedAt;
+    }
+
+    public void setEscrowReleasedAt(LocalDateTime escrowReleasedAt) {
+        this.escrowReleasedAt = escrowReleasedAt;
+    }
 
     public LocalDateTime getScheduledAt() {
-    return scheduledAt;
+        return scheduledAt;
     }
 
     public void setScheduledAt(LocalDateTime scheduledAt) {

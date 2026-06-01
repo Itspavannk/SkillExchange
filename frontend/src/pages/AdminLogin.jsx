@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { ParticleField } from "../components/primitives";
 
 export default function AdminLogin() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,7 +14,6 @@ export default function AdminLogin() {
   const isMobile = window.innerWidth < 768;
 
   const handleLogin = async () => {
-
     if (!email || !password) {
       setError("Both fields are required.");
       return;
@@ -25,18 +23,14 @@ export default function AdminLogin() {
     setError("");
 
     try {
-
       localStorage.clear();
 
       const res = await http.post("/auth/login", {
         email,
-        password
+        password,
       });
 
-      localStorage.setItem(
-        "sx_token",
-        res.token || res.access_token
-      );
+      localStorage.setItem("sx_token", res.token || res.access_token);
 
       const me = await http.get("/auth/me");
 
@@ -52,24 +46,18 @@ export default function AdminLogin() {
       sessionStorage.setItem("admin_logged", "true");
 
       navigate("/admin/disputes");
-
     } catch (e) {
-
       setError("Invalid credentials.");
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
-  const handleKey = e => {
+  const handleKey = (e) => {
     if (e.key === "Enter") handleLogin();
   };
 
   return (
-
     <div
       style={{
         minHeight: "100vh",
@@ -79,19 +67,16 @@ export default function AdminLogin() {
         alignItems: "center",
         justifyContent: "center",
 
-        padding: isMobile
-          ? "10px 16px 40px"
-          : "40px",
+        padding: isMobile ? "10px 16px 40px" : "40px",
 
         position: "relative",
 
         overflow: "hidden",
         overflowX: "hidden",
 
-        isolation: "isolate"
+        isolation: "isolate",
       }}
     >
-
       <ParticleField />
 
       {/* Dark overlay */}
@@ -101,7 +86,7 @@ export default function AdminLogin() {
           inset: 0,
           background:
             "linear-gradient(to bottom, rgba(7,8,15,.72), rgba(7,8,15,.96))",
-          zIndex: 0
+          zIndex: 0,
         }}
       />
 
@@ -125,7 +110,7 @@ export default function AdminLogin() {
 
           pointerEvents: "none",
 
-          zIndex: 0
+          zIndex: 0,
         }}
       />
 
@@ -144,20 +129,17 @@ export default function AdminLogin() {
 
             borderRadius: "50%",
 
-            border: `1px solid rgba(255,200,50,${
-              .03 + i * .04
-            })`,
+            border: `1px solid rgba(255,200,50,${0.03 + i * 0.04})`,
 
             transform: "translate(-50%,-50%)",
 
-            animation:
-              `${i % 2 ? "spinCCW" : "spinCW"} ${
-                20 + i * 6
-              }s linear infinite`,
+            animation: `${i % 2 ? "spinCCW" : "spinCW"} ${
+              20 + i * 6
+            }s linear infinite`,
 
             pointerEvents: "none",
 
-            zIndex: 0
+            zIndex: 0,
           }}
         />
       ))}
@@ -173,17 +155,13 @@ export default function AdminLogin() {
 
           zIndex: 10,
 
-          padding: isMobile
-            ? "10px 14px"
-            : "12px 18px",
+          padding: isMobile ? "10px 14px" : "12px 18px",
 
           borderRadius: 14,
 
-          border:
-            "1px solid rgba(255,255,255,.08)",
+          border: "1px solid rgba(255,255,255,.08)",
 
-          background:
-            "rgba(255,255,255,.03)",
+          background: "rgba(255,255,255,.03)",
 
           color: "white",
 
@@ -200,21 +178,17 @@ export default function AdminLogin() {
 
           backdropFilter: "blur(10px)",
 
-          transition: "all .25s"
+          transition: "all .25s",
         }}
-        onMouseEnter={e => {
-          e.currentTarget.style.borderColor =
-            "rgba(255,200,50,.35)";
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "rgba(255,200,50,.35)";
 
-          e.currentTarget.style.color =
-            "#ffc832";
+          e.currentTarget.style.color = "#ffc832";
         }}
-        onMouseLeave={e => {
-          e.currentTarget.style.borderColor =
-            "rgba(255,255,255,.08)";
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "rgba(255,255,255,.08)";
 
-          e.currentTarget.style.color =
-            "white";
+          e.currentTarget.style.color = "white";
         }}
       >
         ← Back to Home
@@ -230,11 +204,9 @@ export default function AdminLogin() {
 
           zIndex: 2,
 
-          animation:
-            "fadeUp .6s .1s ease both"
+          animation: "fadeUp .6s .1s ease both",
         }}
       >
-
         {/* Glow border */}
         <div
           style={{
@@ -246,7 +218,7 @@ export default function AdminLogin() {
             background:
               "linear-gradient(135deg,rgba(255,200,50,.3),rgba(255,107,53,.12))",
 
-            filter: "blur(1px)"
+            filter: "blur(1px)",
           }}
         />
 
@@ -262,51 +234,43 @@ export default function AdminLogin() {
 
             borderRadius: 28,
 
-            border:
-              "1px solid rgba(255,255,255,.08)",
+            border: "1px solid rgba(255,255,255,.08)",
 
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
-
           {/* top line */}
           <div
             style={{
               height: 1,
 
               background:
-                "linear-gradient(90deg,transparent,#ffc832 40%,#ff6b35 60%,transparent)"
+                "linear-gradient(90deg,transparent,#ffc832 40%,#ff6b35 60%,transparent)",
             }}
           />
 
           <div
             style={{
-              padding: isMobile
-                ? "34px 22px 24px"
-                : "40px 36px 36px"
+              padding: isMobile ? "34px 22px 24px" : "40px 36px 36px",
             }}
           >
-
             {/* Logo */}
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginBottom: 28
+                marginBottom: 28,
               }}
             >
-
               <div
                 style={{
                   position: "relative",
 
                   width: isMobile ? 48 : 56,
-                  height: isMobile ? 48 : 56
+                  height: isMobile ? 48 : 56,
                 }}
               >
-
                 {[56, 42, 28].map((sz, i) => (
-
                   <div
                     key={i}
                     style={{
@@ -315,33 +279,21 @@ export default function AdminLogin() {
                       top: "50%",
                       left: "50%",
 
-                      width: isMobile
-                        ? sz * 0.85
-                        : sz,
+                      width: isMobile ? sz * 0.85 : sz,
 
-                      height: isMobile
-                        ? sz * 0.85
-                        : sz,
+                      height: isMobile ? sz * 0.85 : sz,
 
                       borderRadius: "50%",
 
-                      border:
-                        `1px solid rgba(255,200,50,${
-                          .2 + i * .25
-                        })`,
+                      border: `1px solid rgba(255,200,50,${0.2 + i * 0.25})`,
 
-                      transform:
-                        "translate(-50%,-50%)",
+                      transform: "translate(-50%,-50%)",
 
-                      animation:
-                        `${i % 2
-                          ? "spinCCW"
-                          : "spinCW"} ${
-                          8 + i * 3
-                        }s linear infinite`
+                      animation: `${i % 2 ? "spinCCW" : "spinCW"} ${
+                        8 + i * 3
+                      }s linear infinite`,
                     }}
                   />
-
                 ))}
 
                 <div
@@ -351,10 +303,9 @@ export default function AdminLogin() {
 
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
                   }}
                 >
-
                   <div
                     style={{
                       width: 10,
@@ -364,11 +315,9 @@ export default function AdminLogin() {
 
                       background: "#ffc832",
 
-                      boxShadow:
-                        "0 0 20px rgba(255,200,50,.6)"
+                      boxShadow: "0 0 20px rgba(255,200,50,.6)",
                     }}
                   />
-
                 </div>
               </div>
             </div>
@@ -387,7 +336,7 @@ export default function AdminLogin() {
 
                 marginBottom: 6,
 
-                lineHeight: 1.1
+                lineHeight: 1.1,
               }}
             >
               Admin Access
@@ -403,7 +352,7 @@ export default function AdminLogin() {
 
                 marginBottom: 32,
 
-                lineHeight: 1.6
+                lineHeight: 1.6,
               }}
             >
               Restricted area — authorised personnel only
@@ -414,58 +363,41 @@ export default function AdminLogin() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 12
+                gap: 12,
               }}
             >
-
               {[
                 {
                   label: "Email Address",
                   type: "email",
                   val: email,
-                  set: setEmail
+                  set: setEmail,
                 },
                 {
                   label: "Password",
                   type: "password",
                   val: password,
-                  set: setPassword
-                }
-              ].map(f => (
-
-                <div
-                  key={f.label}
-                  style={{ position: "relative" }}
-                >
-
+                  set: setPassword,
+                },
+              ].map((f) => (
+                <div key={f.label} style={{ position: "relative" }}>
                   <input
                     type={f.type}
-
                     value={f.val}
-
-                    onChange={e =>
-                      f.set(e.target.value)
-                    }
-
+                    onChange={(e) => f.set(e.target.value)}
                     onKeyDown={handleKey}
-
                     placeholder=" "
-
                     disabled={loading}
-
                     style={{
                       width: "100%",
 
-                      background:
-                        "rgba(255,255,255,.06)",
+                      background: "rgba(255,255,255,.06)",
 
-                      border:
-                        "1px solid rgba(255,255,255,.1)",
+                      border: "1px solid rgba(255,255,255,.1)",
 
                       borderRadius: 12,
 
-                      padding:
-                        "18px 16px 6px",
+                      padding: "18px 16px 6px",
 
                       color: "white",
 
@@ -475,22 +407,17 @@ export default function AdminLogin() {
 
                       fontFamily: "inherit",
 
-                      transition:
-                        "border-color .25s",
+                      transition: "border-color .25s",
 
                       boxSizing: "border-box",
 
-                      opacity: loading ? .6 : 1
+                      opacity: loading ? 0.6 : 1,
                     }}
-
-                    onFocus={e =>
-                      e.target.style.borderColor =
-                        "rgba(255,200,50,.6)"
+                    onFocus={(e) =>
+                      (e.target.style.borderColor = "rgba(255,200,50,.6)")
                     }
-
-                    onBlur={e =>
-                      e.target.style.borderColor =
-                        "rgba(255,255,255,.1)"
+                    onBlur={(e) =>
+                      (e.target.style.borderColor = "rgba(255,255,255,.1)")
                     }
                   />
 
@@ -507,28 +434,23 @@ export default function AdminLogin() {
 
                       textTransform: "uppercase",
 
-                      color:
-                        "rgba(255,255,255,.3)",
+                      color: "rgba(255,255,255,.3)",
 
-                      pointerEvents: "none"
+                      pointerEvents: "none",
                     }}
                   >
                     {f.label}
                   </label>
-
                 </div>
-
               ))}
 
               {/* Error */}
               {error && (
                 <div
                   style={{
-                    background:
-                      "rgba(255,80,80,.1)",
+                    background: "rgba(255,80,80,.1)",
 
-                    border:
-                      "1px solid rgba(255,80,80,.25)",
+                    border: "1px solid rgba(255,80,80,.25)",
 
                     borderRadius: 10,
 
@@ -536,7 +458,7 @@ export default function AdminLogin() {
 
                     fontSize: 12,
 
-                    color: "#ff9090"
+                    color: "#ff9090",
                   }}
                 >
                   ⚠ {error}
@@ -546,23 +468,17 @@ export default function AdminLogin() {
               {/* Login Button */}
               <button
                 onClick={handleLogin}
-
                 disabled={loading}
-
                 style={{
                   marginTop: 4,
 
-                  background: loading
-                    ? "rgba(255,200,50,.45)"
-                    : "#ffc832",
+                  background: loading ? "rgba(255,200,50,.45)" : "#ffc832",
 
                   color: "#000",
 
                   borderRadius: 12,
 
-                  padding: isMobile
-                    ? "15px"
-                    : "16px",
+                  padding: isMobile ? "15px" : "16px",
 
                   fontSize: 14,
 
@@ -576,22 +492,15 @@ export default function AdminLogin() {
 
                   width: "100%",
 
-                  boxShadow: loading
-                    ? "none"
-                    : "0 0 40px rgba(255,200,50,.25)",
+                  boxShadow: loading ? "none" : "0 0 40px rgba(255,200,50,.25)",
 
                   transition: "all .3s",
 
-                  cursor: loading
-                    ? "not-allowed"
-                    : "pointer"
+                  cursor: loading ? "not-allowed" : "pointer",
                 }}
               >
-                {loading
-                  ? "Verifying..."
-                  : "Enter Admin Panel →"}
+                {loading ? "Verifying..." : "Enter Admin Panel →"}
               </button>
-
             </div>
           </div>
         </div>

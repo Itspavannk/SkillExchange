@@ -14,7 +14,8 @@ public class ReviewCreateDTO {
 
     private String comment; // optional
 
-    public ReviewCreateDTO() {}
+    public ReviewCreateDTO() {
+    }
 
     public Integer getRating() {
         return rating;

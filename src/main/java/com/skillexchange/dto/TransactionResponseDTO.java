@@ -12,23 +12,54 @@ public class TransactionResponseDTO {
     private String type;
     private LocalDateTime createdAt;
 
-    public TransactionResponseDTO() {}
+    public TransactionResponseDTO() {
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getSenderId() { return senderId; }
-    public void setSenderId(Long senderId) { this.senderId = senderId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getReceiverId() { return receiverId; }
-    public void setReceiverId(Long receiverId) { this.receiverId = receiverId; }
+    public Long getSenderId() {
+        return senderId;
+    }
 
-    public Integer getAmount() { return amount; }
-    public void setAmount(Integer amount) { this.amount = amount; }
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public Long getReceiverId() {
+        return receiverId;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

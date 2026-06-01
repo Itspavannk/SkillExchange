@@ -5,24 +5,24 @@ import { ParticleField } from "../components/primitives";
 const faqs = [
   {
     q: "How does SkillExchange work?",
-    a: "SkillExchange allows users to teach skills and earn credits instead of money. Those credits can later be used to learn from others."
+    a: "SkillExchange allows users to teach skills and earn credits instead of money. Those credits can later be used to learn from others.",
   },
   {
     q: "How does escrow protection work?",
-    a: "Credits are safely held in escrow when a booking is made. They are released only after successful session completion."
+    a: "Credits are safely held in escrow when a booking is made. They are released only after successful session completion.",
   },
   {
     q: "How can I raise a dispute?",
-    a: "Go to Sessions → Open the booking → Click Raise Dispute and describe the issue."
+    a: "Go to Sessions → Open the booking → Click Raise Dispute and describe the issue.",
   },
   {
     q: "How are credits transferred?",
-    a: "Credits automatically transfer after both participants confirm successful completion of the session."
+    a: "Credits automatically transfer after both participants confirm successful completion of the session.",
   },
   {
     q: "Can I cancel a booking?",
-    a: "Yes. Pending bookings can be cancelled before the scheduled session time."
-  }
+    a: "Yes. Pending bookings can be cancelled before the scheduled session time.",
+  },
 ];
 
 function FAQItem({ item, i, open, setOpen, isMobile }) {
@@ -51,7 +51,7 @@ function FAQItem({ item, i, open, setOpen, isMobile }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 16
+          gap: 16,
         }}
       >
         <h3
@@ -60,7 +60,7 @@ function FAQItem({ item, i, open, setOpen, isMobile }) {
             margin: 0,
             color: "white",
             fontSize: isMobile ? 20 : 28,
-            lineHeight: 1.3
+            lineHeight: 1.3,
           }}
         >
           {item.q}
@@ -83,7 +83,7 @@ function FAQItem({ item, i, open, setOpen, isMobile }) {
             justifyContent: "center",
             color: active ? "#ffc832" : "white",
             fontSize: isMobile ? 20 : 24,
-            transition: "all .3s"
+            transition: "all .3s",
           }}
         >
           {active ? "−" : "+"}
@@ -94,7 +94,7 @@ function FAQItem({ item, i, open, setOpen, isMobile }) {
         style={{
           maxHeight: active ? 300 : 0,
           overflow: "hidden",
-          transition: "all .45s cubic-bezier(.16,1,.3,1)"
+          transition: "all .45s cubic-bezier(.16,1,.3,1)",
         }}
       >
         <div
@@ -102,7 +102,7 @@ function FAQItem({ item, i, open, setOpen, isMobile }) {
             padding: isMobile ? "0 20px 22px" : "0 30px 28px",
             color: "rgba(255,255,255,.5)",
             lineHeight: 1.9,
-            fontSize: isMobile ? 15 : 17
+            fontSize: isMobile ? 15 : 17,
           }}
         >
           {item.a}
@@ -125,15 +125,14 @@ export default function HelpCenterPage() {
         padding: isMobile
           ? "110px 16px 40px"
           : isTablet
-          ? "130px 32px 70px"
-          : "140px 80px 100px",
+            ? "130px 32px 70px"
+            : "140px 80px 100px",
         position: "relative",
         overflow: "hidden",
         overflowX: "hidden",
-        isolation: "isolate"
+        isolation: "isolate",
       }}
     >
-
       <ParticleField />
 
       <div
@@ -142,7 +141,7 @@ export default function HelpCenterPage() {
           inset: 0,
           background:
             "linear-gradient(to bottom, rgba(7,8,15,.72), rgba(7,8,15,.96))",
-          zIndex: 0
+          zIndex: 0,
         }}
       />
 
@@ -157,7 +156,7 @@ export default function HelpCenterPage() {
           borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(255,200,50,.12), transparent 70%)",
-          filter: "blur(100px)"
+          filter: "blur(100px)",
         }}
       />
 
@@ -166,24 +165,22 @@ export default function HelpCenterPage() {
         style={{
           position: "relative",
           zIndex: 2,
-          marginBottom: isMobile ? 40 : 70
+          marginBottom: isMobile ? 40 : 70,
         }}
       >
-
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: 16,
-            marginBottom: 18
+            marginBottom: 18,
           }}
         >
-
           <div
             style={{
               width: isMobile ? 40 : 52,
               height: 1,
-              background: "#ffc832"
+              background: "#ffc832",
             }}
           />
 
@@ -192,12 +189,11 @@ export default function HelpCenterPage() {
               color: "#ffc832",
               letterSpacing: 5,
               textTransform: "uppercase",
-              fontSize: isMobile ? 11 : 13
+              fontSize: isMobile ? 11 : 13,
             }}
           >
             Support & Guidance
           </div>
-
         </div>
 
         <h1
@@ -208,7 +204,7 @@ export default function HelpCenterPage() {
             fontSize: isMobile
               ? "clamp(42px,12vw,62px)"
               : "clamp(60px,8vw,120px)",
-            lineHeight: 1
+            lineHeight: 1,
           }}
         >
           Help Center
@@ -220,11 +216,11 @@ export default function HelpCenterPage() {
             maxWidth: 760,
             color: "rgba(255,255,255,.5)",
             lineHeight: 1.9,
-            fontSize: isMobile ? 15 : 18
+            fontSize: isMobile ? 15 : 18,
           }}
         >
-          Everything you need to know about bookings, credits,
-          escrow protection, disputes, and mentoring on SkillExchange.
+          Everything you need to know about bookings, credits, escrow
+          protection, disputes, and mentoring on SkillExchange.
         </p>
       </div>
 
@@ -234,7 +230,7 @@ export default function HelpCenterPage() {
           position: "relative",
           zIndex: 2,
           marginBottom: isMobile ? 36 : 50,
-          maxWidth: 900
+          maxWidth: 900,
         }}
       >
         <input
@@ -249,7 +245,7 @@ export default function HelpCenterPage() {
             color: "white",
             fontSize: isMobile ? 15 : 18,
             backdropFilter: "blur(20px)",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
           }}
         />
       </div>
@@ -262,7 +258,7 @@ export default function HelpCenterPage() {
           gap: isMobile ? 16 : 22,
           maxWidth: 1000,
           position: "relative",
-          zIndex: 2
+          zIndex: 2,
         }}
       >
         {faqs.map((f, i) => (
@@ -291,10 +287,9 @@ export default function HelpCenterPage() {
           border: "1px solid rgba(255,200,50,.15)",
           position: "relative",
           overflow: "hidden",
-          zIndex: 2
+          zIndex: 2,
         }}
       >
-
         <div
           style={{
             position: "absolute",
@@ -303,7 +298,7 @@ export default function HelpCenterPage() {
             right: 0,
             height: 2,
             background:
-              "linear-gradient(90deg, transparent, #ffc832, transparent)"
+              "linear-gradient(90deg, transparent, #ffc832, transparent)",
           }}
         />
 
@@ -313,7 +308,7 @@ export default function HelpCenterPage() {
             color: "white",
             fontSize: isMobile ? 28 : 40,
             marginBottom: 18,
-            lineHeight: 1.2
+            lineHeight: 1.2,
           }}
         >
           Need More Help?
@@ -324,11 +319,11 @@ export default function HelpCenterPage() {
             color: "rgba(255,255,255,.5)",
             lineHeight: 1.8,
             maxWidth: 700,
-            fontSize: isMobile ? 15 : 17
+            fontSize: isMobile ? 15 : 17,
           }}
         >
-          Our support team is available to assist you with disputes,
-          technical issues, bookings, and account-related questions.
+          Our support team is available to assist you with disputes, technical
+          issues, bookings, and account-related questions.
         </p>
 
         <button
@@ -345,7 +340,7 @@ export default function HelpCenterPage() {
             letterSpacing: 3,
             textTransform: "uppercase",
             cursor: "pointer",
-            boxShadow: "0 20px 60px rgba(255,200,50,.22)"
+            boxShadow: "0 20px 60px rgba(255,200,50,.22)",
           }}
         >
           Contact Support

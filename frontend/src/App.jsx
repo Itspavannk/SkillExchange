@@ -17,8 +17,6 @@ import LeaderboardPage from "./pages/LeaderboardPage";
 import HelpCenterPage from "./pages/HelpCenterPage";
 import MySkillsPage from "./pages/MySkillsPage";
 
-
-
 import {
   HeroSection,
   HowItWorksSection,
@@ -30,7 +28,7 @@ import {
 } from "./components/sections";
 
 function AppShell({ children }) {
-  const [modal,      setModal]      = useState(false);
+  const [modal, setModal] = useState(false);
   const [skillModal, setSkillModal] = useState(false);
   const { isAuth } = useAuth();
 
@@ -39,16 +37,23 @@ function AppShell({ children }) {
       <GlobalStyles />
       <GrainOverlay />
       <Cursor />
-      <AuthModal     open={modal}      onClose={() => setModal(false)} />
-      <AddSkillModal open={skillModal} onClose={() => setSkillModal(false)} onCreated={() => window.location.reload()} />
-      <Navbar onOpenModal={() => setModal(true)} onAddSkill={() => setSkillModal(true)} />
+      <AuthModal open={modal} onClose={() => setModal(false)} />
+      <AddSkillModal
+        open={skillModal}
+        onClose={() => setSkillModal(false)}
+        onCreated={() => window.location.reload()}
+      />
+      <Navbar
+        onOpenModal={() => setModal(true)}
+        onAddSkill={() => setSkillModal(true)}
+      />
       {children}
     </div>
   );
 }
 
 function Home() {
-  const [modal,      setModal]      = useState(false);
+  const [modal, setModal] = useState(false);
   const [skillModal, setSkillModal] = useState(false);
   const { isAuth } = useAuth();
 
@@ -57,25 +62,29 @@ function Home() {
       <GlobalStyles />
       <GrainOverlay />
       <Cursor />
-      <AuthModal     open={modal}      onClose={() => setModal(false)} />
-      <AddSkillModal open={skillModal} onClose={() => setSkillModal(false)} onCreated={() => window.location.reload()} />
-      <Navbar onOpenModal={() => setModal(true)} onAddSkill={() => setSkillModal(true)} />
+      <AuthModal open={modal} onClose={() => setModal(false)} />
+      <AddSkillModal
+        open={skillModal}
+        onClose={() => setSkillModal(false)}
+        onCreated={() => window.location.reload()}
+      />
+      <Navbar
+        onOpenModal={() => setModal(true)}
+        onAddSkill={() => setSkillModal(true)}
+      />
 
       <main>
         <HeroSection onOpenModal={() => setModal(true)} isAuth={isAuth} />
         <Marquee />
         <HowItWorksSection />
-        <SkillsGridSection 
-              isAuth={isAuth} 
-              onOpenModal={() => setModal(true)} 
-            />
+        <SkillsGridSection isAuth={isAuth} onOpenModal={() => setModal(true)} />
         <CreditsSection />
         <TestimonialsSection />
         <CTASection
-  onOpenModal={() => setModal(true)}
-  isAuth={isAuth}
-  onAddSkill={() => setSkillModal(true)}
-/>
+          onOpenModal={() => setModal(true)}
+          isAuth={isAuth}
+          onAddSkill={() => setSkillModal(true)}
+        />
       </main>
 
       <Footer />
@@ -83,51 +92,64 @@ function Home() {
   );
 }
 
-
 export default function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/"               element={<Home />} />
-          <Route path="/sessions"       element={<AppShell><SessionsPage /></AppShell>} />
-          <Route path="/profile"        element={<AppShell><ProfilePage /></AppShell>} />
-          <Route path="/admin/login"    element={<AdminLogin />} />
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/sessions"
+            element={
+              <AppShell>
+                <SessionsPage />
+              </AppShell>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <AppShell>
+                <ProfilePage />
+              </AppShell>
+            }
+          />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/disputes" element={<AdminDisputesPage />} />
           <Route
-              path="/notifications"
-              element={
-                <AppShell>
-                  <NotificationsPage />
-                </AppShell>
-              }
-            />
+            path="/notifications"
+            element={
+              <AppShell>
+                <NotificationsPage />
+              </AppShell>
+            }
+          />
 
-            <Route
-              path="/leaderboard"
-              element={
-                <AppShell>
-                  <LeaderboardPage />
-                </AppShell>
-              }
-            />
+          <Route
+            path="/leaderboard"
+            element={
+              <AppShell>
+                <LeaderboardPage />
+              </AppShell>
+            }
+          />
 
-            <Route
-                path="/help"
-                element={
-                  <AppShell>
-                    <HelpCenterPage />
-                  </AppShell>
-                }
-              />
-             <Route
-  path="/my-skills"
-  element={
-    <AppShell>
-      <MySkillsPage />
-    </AppShell>
-  }
-/>
+          <Route
+            path="/help"
+            element={
+              <AppShell>
+                <HelpCenterPage />
+              </AppShell>
+            }
+          />
+          <Route
+            path="/my-skills"
+            element={
+              <AppShell>
+                <MySkillsPage />
+              </AppShell>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>

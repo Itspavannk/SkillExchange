@@ -1,17 +1,29 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { login, register, logout, getMe } from "../api/auth";
 import { Token } from "../api/client";
 
 const Ctx = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user,    setUser]    = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Restore session on page load
   useEffect(() => {
-    if (!Token.exists()) { setLoading(false); return; }
-    getMe().then(setUser).catch(() => Token.clear()).finally(() => setLoading(false));
+    if (!Token.exists()) {
+      setLoading(false);
+      return;
+    }
+    getMe()
+      .then(setUser)
+      .catch(() => Token.clear())
+      .finally(() => setLoading(false));
   }, []);
 
   // Force-logout when token expires (401 from any endpoint)
@@ -21,30 +33,30 @@ export function AuthProvider({ children }) {
     return () => window.removeEventListener("sx:logout", fn);
   }, []);
 
-      const authLogin = useCallback(async (email, password) => {
+  const authLogin = useCallback(async (email, password) => {
+    const data = await login({ email, password });
 
-        const data = await login({ email, password });
+    if (data.error) {
+      throw new Error(data.error);
+    }
 
-        
-        if (data.error) {
-          throw new Error(data.error);
-        }
+    // save token
+    Token.set(data.access_token);
 
-        // save token
-        Token.set(data.access_token);
+    // fetch user info
+    const me = await getMe();
+    setUser(me);
 
-        // fetch user info
-        const me = await getMe();
-        setUser(me);
+    return me;
+  }, []);
 
-        return me;
-
-      }, []);
-
-    const authRegister = useCallback(async (name, email, password) => {
+  const authRegister = useCallback(
+    async (name, email, password) => {
       await register({ name, email, password });
       return authLogin(email, password);
-    }, [authLogin]);
+    },
+    [authLogin],
+  );
 
   const authLogout = useCallback(() => {
     logout();
@@ -60,21 +72,23 @@ export function AuthProvider({ children }) {
   }, []);
 
   const updateUser = (newData) => {
-  setUser(prev => ({ ...prev, ...newData }));
-};
+    setUser((prev) => ({ ...prev, ...newData }));
+  };
 
   return (
-    <Ctx.Provider value={{
-  user,
-  loading,
-  isAuth: !!user,
-  isAdmin: user?.role === "admin",
-  authLogin,
-  authRegister,
-  authLogout,
-  refreshUser,
-  updateUser
-}}>
+    <Ctx.Provider
+      value={{
+        user,
+        loading,
+        isAuth: !!user,
+        isAdmin: user?.role === "admin",
+        authLogin,
+        authRegister,
+        authLogout,
+        refreshUser,
+        updateUser,
+      }}
+    >
       {children}
     </Ctx.Provider>
   );

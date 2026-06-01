@@ -22,8 +22,8 @@ public class ReviewController {
     // POST /reviews/{booking_id} — was completely missing
     @PostMapping("/{bookingId}")
     public ReviewResponseDTO createReview(@PathVariable Long bookingId,
-                                          @RequestBody ReviewCreateDTO data,
-                                          @AuthenticationPrincipal User currentUser) {
+            @RequestBody ReviewCreateDTO data,
+            @AuthenticationPrincipal User currentUser) {
         return reviewService.createReview(bookingId, data, currentUser);
     }
 

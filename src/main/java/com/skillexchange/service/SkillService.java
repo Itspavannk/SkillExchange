@@ -76,7 +76,6 @@ public class SkillService {
         dto.setSkillRatingCount(sCount);
         dto.setSkillAverageRating(sCount > 0 ? Math.round((double) sTotal / sCount * 10.0) / 10.0 : 0.0);
 
-
         dto.setOwnerId(owner.getId());
         dto.setOwnerName(owner.getName());
 
