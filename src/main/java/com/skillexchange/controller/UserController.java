@@ -12,7 +12,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(
+    origins = {
+        "http://localhost:3000",
+        "https://skill-exchange-xi-one.vercel.app"
+    }
+)
 public class UserController {
 
     private final UserRepository userRepository;
@@ -52,7 +57,8 @@ public class UserController {
             File dest = new File(uploadDir + fileName);
             file.transferTo(dest);
 
-            String imageUrl = "http://localhost:8080/uploads/" + fileName;
+            String imageUrl =
+    "https://skillexchange-wkuw.onrender.com/uploads/" + fileName;
             user.setProfileImage(imageUrl);
             userRepository.save(user);
 
